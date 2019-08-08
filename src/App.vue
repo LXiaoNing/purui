@@ -33,10 +33,16 @@ time, mark, audio, video, input {
     margin: 0;
     padding: 0;
     border: 0;
-box-sizing: border-box;
+	box-sizing: border-box;
+	 text-align: center;
+	
     /*font-size: 100%;*/
     /*font-weight: normal;*/
     /*vertical-align: baseline;*/
+}
+a{
+	text-decoration: none;
+	color: #fff;
 }
 article, aside, details, figcaption, figure,
 footer, header, menu, nav, section {

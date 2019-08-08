@@ -3,7 +3,7 @@
 		<el-container>
   			<el-header height='80px'>
   				<div >
-				<p v-on:click="aa">{{a}}</p>
+				<p >普瑞咖啡</p>
 			</div>
 			<ul>
 			<li>
@@ -26,34 +26,32 @@
   			</el-header>
 	  		<el-container>
 	   		 <el-aside width="140px" >
-	   		 	<el-input placeholder='aa'v-model="input4">
-    				<i slot="prefix" class="el-input__icon "></i>
-  				</el-input>
-					<div  v-for=" (data,i) in classes" :key="data.id" >
+	   		 	<div  v-for=" (data,i) in classes" :key="data.id" >
 						<div class="classes" v-on:click="shuwlis(i)">
 							{{data.classes_name}}
 						</div>
 						<ul v-show="data.show" >
-							<li  class="classes" v-for="classer2 in data.classesils" :key='classer2.id'>{{classer2.classes_name}}</li>
+							<li v-on:click="getgoods(classer2.id)" class="classes" v-for="classer2 in data.classesils" :key='classer2.id' >{{classer2.classes_name}}{{classer2.id}}</li>
 						</ul>
 				</div>
 	   		 </el-aside>
-	   	 <el-main>Main</el-main>
+	   	 <el-main><goods :goodsils="goods"></goods></el-main>
 	 	 </el-container>
 		</el-container>
 	</div>
 </template>
 <script>
-//	import goods from './goods'
+	import goods from './goods'
 export default {
 	name: 'home',
 	 components:{
-// 			goods,
+   			goods,
   				},
 		  	data () {
 		    	return {
 		    		input4: '',
 		    		classes:[],
+		    		goods: [],
 		    		a:1,
 							}
 		 		 },
@@ -66,26 +64,46 @@ export default {
      });
      console.log(i,this.classes);
   },
-  aa: function(){
-  	this.a+=1;
-  }
+ 	getgoods: function(id) {
+			    console.log(id);
+				this.$axios.get('http://localhost/tp/index/goods/goods', {
+    		params: {
+    			goods_classes:id
+   				 }
+		})
+			.then((res) =>{
+				this.goods=res.data;
+				console.log(res.data);
+				})
+			.catch((error) => {
+			    console.log(error);
+				});
+		},
 		},
 	beforeCreate(){	
 		this.$axios.get('http://localhost/tp/index/index/classes', {
-    params: {
-      
-    }
-  })
-  .then((res) =>{
-  	this.classes=res.data;
-	res.data.map((item,index)=>{return item.show = false;});
-  	
-    console.log(res.data);
-  })
-  .catch((error) => {
-    console.log(error);
-  });
-			},
+    		params: {}
+		}).then((res) =>{
+				res.data.map((item,index)=>{return item.show = false;});
+				this.classes=res.data;
+				
+				})
+			.catch((error) => {
+			    console.log(error);
+				});
+		this.$axios.get('http://localhost/tp/index/goods/goods', {
+    		params: {
+    			goods_classes:13
+   				 }
+		})
+			.then((res) =>{
+				this.goods=res.data;
+				console.log(res.data);
+				})
+			.catch((error) => {
+			    console.log(error);
+				});
+	},
 	mounted(){
 
 	}
@@ -143,32 +161,39 @@ export default {
     color: #333;
     text-align: center;
     height: 600px;
+    padding-top: 20px;
   
   }
+  
   .classes{
 	/*height: 35px;*/
 	line-height: 35px;
 	width: 100%;
 	margin-bottom:1px ;
-	background-color:azure ;
+	background-color: #8DB6CD;
 	text-align: center;
 	border-radius:5px
 }
+
 .el-aside div ul li{
 	line-height: 35px;
 	width: 100%;
 	margin-bottom:1px ;
-	background-color:royalblue ;
+	background-color: #B4CDCD;
 	text-align: center;
 	border-radius:2px;
 	/*display:none;*/
+}
+.el-aside div ul li:hover{
+	background-color:#BCD2EE;
 }
 /***************内容***********/
   
  .el-main {
     background-color: #E9EEF3;
     color: #333;
+    padding: 0;
     text-align: center;
-    line-height: 160px;
+    
   }
 </style>

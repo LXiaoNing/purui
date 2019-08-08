@@ -3,7 +3,7 @@
   	<div id="us" v-for="goods in goodsils">
   		
     <h3>{{goods.goods_name}}</h3>
-    <p>库存：{{goods.goods_surplus/goods.goods_unitsvalue | fint}}{{goods.goods_units}}</p>
+    <p>库存：{{goods.goods_surplus| fint}}{{goods.goods_units}}</p>
     <p>规格:{{goods.goods_unitsvalue}}x{{goods.goods_spec}}</p>
     <p>保质期:{{goods.goods_vdate}}天</p>
     <p>单价:{{goods.goods_price | price}}</p>
@@ -29,7 +29,6 @@ export default {
   			},
   data () {	
     	return {
-    		
    				 }
   			 },
   			 methods:{
