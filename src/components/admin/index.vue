@@ -25,7 +25,7 @@
         </template>
           <el-menu-item index="2-1">订单</el-menu-item>
           <el-menu-item index="2-2">订单记录</el-menu-item>
-          <el-menu-item index="2-3">选项3</el-menu-item>
+          <el-menu-item index="2-3">库存</el-menu-item>
       </el-submenu>
        <el-submenu index="3">
         <template slot="title"> 
